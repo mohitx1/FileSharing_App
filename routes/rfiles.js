@@ -1,7 +1,7 @@
 const router=require('express').Router();
 const multer=require('multer');
 const path =require('path');
-const {v4: uuid} = require('uuid')
+const {v4: uuid} = require('uuid');
 
 
 //Imported from local
