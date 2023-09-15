@@ -9,7 +9,7 @@ const connectDB=require('./config/db');
 connectDB();
 
 //Routes
-app.use('/api/files',require('./routes/files'))
+app.use('/api/files',require('./routes/rfiles'))
 
 app.listen(port,()=>{
     console.log(`Server running at port: ${port}`)
