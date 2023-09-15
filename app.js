@@ -8,9 +8,8 @@ const port=process.env.PORT|| 3000;
 const connectDB=require('./config/db');
 connectDB();
 
-app.use((req,res)=>{
-    res.send('Hello')
-});
+//Routes
+app.use('/api/files',require('./routes/files'))
 
 app.listen(port,()=>{
     console.log(`Server running at port: ${port}`)
