@@ -17,27 +17,29 @@ let storage = multer.diskStorage({
     }
 })
 
+
 let upload= multer({
     storage,
     limit: {fileSize: 100000*100}, //about 100mb
 }).single('myfile');
 
 router.post('/',(req,res)=>{
-    //Validate request
-    if(!req,file){
-        return res.json({error:'All fields are required.'})
-    }
+
+    upload(req,res, async(err)=>{
+        //Validate request
+        if(!req.file){
+            return res.json({error:'All fields are required.'})
+        }
 
 
     //Storing files in upload folder
-    upload(req,res, async(err)=>{
         if(err){
             return res.status(500).send({error: err.message})
         }
     //Storing into database
         const file=new File({
-            filename: req.file.filename,
-            uuid:  uuid$(),
+            fileName: req.file.filename,
+            uuid:  uuid(),
             path: req.file.path,
             size: req.file.size
         });
@@ -45,7 +47,7 @@ router.post('/',(req,res)=>{
         const response= await file.save();
         return res.json({file: `${process.env.APP_BASE_URL}/files/${response.uuid}`});
         //http://localhost:3000/files/nsjfhsdfsdfjsdj-fdsfsdfasfgre
-    })
+    });
 
 
 
