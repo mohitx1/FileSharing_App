@@ -1,6 +1,11 @@
 const router=require('express').Router();
 const multer=require('multer');
 const path =require('path');
+const {v4: uuid} = require('uuid')
+
+
+//Imported from local
+const File=require('../models/mfiles')
 
 let storage = multer.diskStorage({
     destination:(req, file, cb)=> cb(null, 'uploads/'),
@@ -25,12 +30,21 @@ router.post('/',(req,res)=>{
 
 
     //Storing files in upload folder
-    upload(req,res,(err)=>{
+    upload(req,res, async(err)=>{
         if(err){
             return res.status(500).send({error: err.message})
         }
     //Storing into database
-    
+        const file=new File({
+            filename: req.file.filename,
+            uuid:  uuid$(),
+            path: req.file.path,
+            size: req.file.size
+        });
+
+        const response= await file.save();
+        return res.json({file: `${process.env.APP_BASE_URL}/files/${response.uuid}`});
+        //http://localhost:3000/files/nsjfhsdfsdfjsdj-fdsfsdfasfgre
     })
 
 
