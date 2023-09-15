@@ -38,7 +38,7 @@ router.post('/',(req,res)=>{
         }
     //Storing into database
         const file=new File({
-            fileName: req.file.filename,
+            filename: req.file.filename,
             uuid:  uuid(),
             path: req.file.path,
             size: req.file.size
