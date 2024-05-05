@@ -5,7 +5,7 @@ const {v4: uuid} = require('uuid');
 
 
 //Imported from local
-const File=require('../models/mfiles')
+const File=require('../models/files')
 
 let storage = multer.diskStorage({
     destination:(req, file, cb)=> cb(null, 'uploads/'),

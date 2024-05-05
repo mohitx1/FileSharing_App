@@ -1,6 +1,6 @@
 const router=require('express').Router();
 
-const File=require('../models/mfiles')
+const File=require('../models/files')
 
 router.get('/:uuid',async(req,res)=>{
     try{
